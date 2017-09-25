@@ -98,18 +98,19 @@ app.get('/futuregroup/bot/sales/',function(request, response) {
 
     
     if(request.query.fromSaleDate != null && request.query.toSaleDate){
-      //  console.log("@@@@@@" + request.query.fromSaleDate  + " " + request.query.toSaleDate) ;
+       // console.log("@@@@@@" + request.query.fromSaleDate  + " " + request.query.toSaleDate) ;
         
         filter.fromSaleDate = request.query.fromSaleDate;
         filter.toSaleDate = request.query.toSaleDate;
 
-        return Sales.getSalesInfoWithinDateRange(filter)
+        return Sales.getSalesInfoWithinDateRange(filter).then(function(res){
+           response.send(res);
+        });
     }
 
     else
-        return Sales.getSalesInfo(filter)
-    .then(function(res){
-        return response.send(res);
+        return Sales.getSalesInfo(filter).then(function(res){
+        response.send(res);
     })
     .catch(function(err){
         console.log(err);
@@ -120,7 +121,7 @@ app.get('/futuregroup/bot/sales/',function(request, response) {
 });
 
 
-var port = 3010;
+var port = 3011;
 app.listen(port, function () {
     console.log('Example app listening on port !', port)
 });
