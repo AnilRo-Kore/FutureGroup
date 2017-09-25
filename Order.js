@@ -13,7 +13,6 @@ Order.prototype.getDetailsForOrder = function (filter) {
             db.collection(collectionName).find({
                 storeId: filter.storeId,
                 orderId: filter.orderId,
-                cutomerId: filter.cutomerId
             })
             .toArray(function(err, res){
                 if(err){
