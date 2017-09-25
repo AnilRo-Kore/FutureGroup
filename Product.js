@@ -24,6 +24,28 @@ Product.prototype.getInventoryForProduct = function (filter) {
     });
 }
 
+
+//get inventory/product details for product
+Product.prototype.getInventoryStockDetails = function (filter) {
+    return new Promise(function(resolve, reject){
+        // console.log("filter.quantity : "+ filter.quantity);
+        dbManager.getConnection(function (db) {
+            db.collection(collectionName).find({
+                quantity: filter.quantity,
+                storeId:  filter.storeId
+            })
+            .toArray(function(err, res){
+                if(err){
+                    return reject(err);
+                }
+              //  console.log("@@@" + JSON.stringify(res));
+                return resolve (res);
+            });
+        });
+    });
+}
+
+
 module.exports = {
     getInst: function () {
         return new Product();
