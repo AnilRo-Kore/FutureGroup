@@ -12,7 +12,7 @@ Order.prototype.getDetailsForOrder = function (filter) {
         dbManager.getConnection(function (db) {
             db.collection(collectionName).find({
                 storeId: filter.storeId,
-                orderId: filter.orderId,
+                orderId: filter.orderId
             })
             .toArray(function(err, res){
                 if(err){
