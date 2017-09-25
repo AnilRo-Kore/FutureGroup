@@ -71,6 +71,22 @@ app.get('/futuregroup/bot/order/', function (request, response) {
 
 });
 
+
+//get alert fot order details
+app.get('/futuregroup/bot/orderAlert/', function (request, response) {
+    var filter = {};
+    filter.storeId = request.query.storeId;
+    filter.orderType = request.query.orderType;
+    filter.currentDateTime = new Date();
+    return Order.getAlertFororders(filter)
+    .then(function(res){
+        return response.send(res);
+    })
+    .catch(function(err){
+        console.log(err);
+        return response.status(500).send(err);
+    });
+});
 //get incident details for the customer
 app.get('/futuregroup/bot/incident/', function (request, response) {
     var filter = {};
