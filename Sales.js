@@ -1,7 +1,6 @@
 var collectionName = "Sales";
 var dbManager = require("./DBManager.js");
 var Promise = require("bluebird");
-var moment = require("moment");
 
 function Sales() {
 }
