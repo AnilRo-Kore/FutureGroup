@@ -12,7 +12,6 @@ Incident.prototype.getIncidentDetailsForCustomer = function (filter) {
         dbManager.getConnection(function (db) {
             db.collection(collectionName).find({
                 storeId: {$regex : new RegExp(filter.storeId, "i") },
-                cutomerId: {$regex : new RegExp(filter.cutomerId, "i") },
                 incidentId: {$regex : new RegExp(filter.incidentId, "i") }
             })
             .toArray(function(err, res){

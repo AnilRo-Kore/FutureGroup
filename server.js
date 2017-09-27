@@ -90,10 +90,8 @@ app.get('/futuregroup/bot/orderAlert/', function (request, response) {
 //get incident details for the customer
 app.get('/futuregroup/bot/incident/', function (request, response) {
     var filter = {};
-    filter.storeId = request.query.storeId;
-    filter.customerId = request.query.customerId;
-    filter.incidentId = request.query.incidentId   
-
+    filter.storeId = request.query.storeId,
+    filter.incidentId = request.query.incidentId  
     return Incident.getIncidentDetailsForCustomer(filter)
     .then(function(res){
         return response.send(res);
