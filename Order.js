@@ -11,8 +11,8 @@ Order.prototype.getDetailsForOrder = function (filter) {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
             db.collection(collectionName).find({
-                storeId: filter.storeId,
-                orderId: filter.orderId
+                storeId: {$regex : new RegExp(filter.storeId, "i") },
+                orderId: {$regex : new RegExp(filter.orderId, "i") }
             })
             .toArray(function(err, res){
                 if(err){
@@ -29,9 +29,9 @@ Order.prototype.getAlertFororders = function (filter) {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
             db.collection(collectionName).find({
-                storeId: filter.storeId,
-                orderType: filter.orderType,
-                orderStatus: "undelivered",
+                storeId: {$regex : new RegExp(filter.storeId, "i") },
+                orderType: {$regex : new RegExp(filter.orderType, "i") },
+                orderStatus: {$regex : new RegExp("undelivered", "i") },
                 deliveryDate: { $lte: filter.currentDateTime}
             })
             .toArray(function(err, res){

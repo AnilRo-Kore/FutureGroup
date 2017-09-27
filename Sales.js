@@ -11,7 +11,7 @@ Sales.prototype.getSalesInfo = function (filter) {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
             db.collection(collectionName).find({
-                storeId: filter.storeId,
+                storeId: {$regex : new RegExp(filter.storeId, "i") },
                 saleDate: new Date(filter.saleDate)
             })
             .toArray(function(err, res){
@@ -24,12 +24,13 @@ Sales.prototype.getSalesInfo = function (filter) {
     });
 }
 
-//get inventory details for product
+//get inventory details for product 
 Sales.prototype.getSalesInfoWithinDateRange = function (filter) {
-     return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject){
          dbManager.getConnection(function (db) {
+
              db.collection(collectionName).find({
-                 storeId: filter.storeId,
+                 storeId:  {$regex : new RegExp(filter.storeId, "i") },
                  saleDate: { $gte: new Date(filter.fromSaleDate), $lte: new Date(filter.toSaleDate)}
              })
              .toArray(function(err, res){

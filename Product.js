@@ -11,8 +11,8 @@ Product.prototype.getInventoryForProduct = function (filter) {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
             db.collection(collectionName).find({
-                storeId: filter.storeId,
-                productName: filter.productName
+                storeId: {$regex : new RegExp(filter.storeId, "i") },
+                productName: {$regex : new RegExp(filter.productName, "i") }
             })
             .toArray(function(err, res){
                 if(err){
@@ -32,7 +32,7 @@ Product.prototype.getInventoryStockDetails = function (filter) {
         dbManager.getConnection(function (db) {
             db.collection(collectionName).find({
                 quantity: filter.quantity,
-                storeId:  filter.storeId
+                storeId:  {$regex : new RegExp(filter.storeId, "i") }
             })
             .toArray(function(err, res){
                 if(err){
