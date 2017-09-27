@@ -3,11 +3,9 @@ var bodyParser = require('body-parser');
 var Order = require("./Order.js").getInst();
 var Product = require("./Product.js").getInst();
 var Sales = require("./Sales.js").getInst();
-
-// var Sales = require("./Sales.js").getInst();
-// var Customer = require("./Customer.js").getInst();
+var Customer = require("./Customer.js").getInst();
 var Incident = require("./Incident.js").getInst();
-// var Store = require("./Store.js").getInst();
+var Store = require("./Store.js").getInst();
 
 
 var app = express();
@@ -16,6 +14,35 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+//get valid store
+app.get('/futuregroup/bot/checkValidStore/', function (request, response) {
+    var filter = {};
+    filter.storeId = request.query.storeId;
+    
+    return Store.checkValidStore(filter)
+    .then(function(res){
+        return response.send(res);
+    })
+    .catch(function(err){
+        console.log(err);
+        return response.status(500).send(err);
+    });
+});
+
+//get valid customer
+app.get('/futuregroup/bot/checkValidCustomer/', function (request, response) {
+    var filter = {};
+    filter.customerId = request.query.customerId;
+    
+    return Customer.checkValidCustomer(filter)
+    .then(function(res){
+        return response.send(res);
+    })
+    .catch(function(err){
+        console.log(err);
+        return response.status(500).send(err);
+    });
+});
 
 //get product inventory details
 app.get('/futuregroup/bot/product/', function (request, response) {
