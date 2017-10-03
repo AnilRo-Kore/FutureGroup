@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var Order = require("./Order.js").getInst();
 var Product = require("./Product.js").getInst();
 var Sales = require("./Sales.js").getInst();
-var Customer = require("./Customer.js").getInst();
+var User = require("./User.js").getInst();
 var Incident = require("./Incident.js").getInst();
 var Store = require("./Store.js").getInst();
 
@@ -30,11 +30,15 @@ app.get('/futuregroup/bot/checkValidStore/', function (request, response) {
 });
 
 //get valid customer
-app.get('/futuregroup/bot/checkValidCustomer/', function (request, response) {
+app.get('/futuregroup/bot/checkValidUser/', function (request, response) {
     var filter = {};
-    filter.customerId = request.query.customerId;
-    
-    return Customer.checkValidCustomer(filter)
+
+if(request.query.userName != null && request.query.password != null){
+    // console.log("AA "+ JSON.stringify(request.query) + " "+ JSON.stringify(request.query.userId));
+    filter.userName = request.query.userName;
+    filter.password = request.query.password;
+
+    return User.checkValidUser(filter)
     .then(function(res){
         return response.send(res);
     })
@@ -42,7 +46,10 @@ app.get('/futuregroup/bot/checkValidCustomer/', function (request, response) {
         console.log(err);
         return response.status(500).send(err);
     });
-});
+}
+}
+);
+
 
 //get product inventory details
 app.get('/futuregroup/bot/product/', function (request, response) {
