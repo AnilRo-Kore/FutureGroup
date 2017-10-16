@@ -29,6 +29,19 @@ app.get('/futuregroup/bot/checkValidStore/', function (request, response) {
     });
 });
 
+//get allStores
+app.get('/futuregroup/bot/getAllStores/', function (request, response) {
+    var filter = {};
+    return Store.getAllStores()
+    .then(function(res){
+        return response.send(res);
+    })
+    .catch(function(err){
+        console.log(err);
+        return response.status(500).send(err);
+    });
+});
+
 //get valid customer
 app.get('/futuregroup/bot/checkValidUser/', function (request, response) {
     var filter = {};

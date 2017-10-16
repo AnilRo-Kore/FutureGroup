@@ -28,6 +28,23 @@ Store.prototype.checkValidStore = function (filter) {
     });
 }
 
+//get All Stores
+
+Store.prototype.getAllStores = function () {
+    return new Promise(function(resolve, reject){
+        dbManager.getConnection(function (db) {
+            db.collection(collectionName).find()
+            .toArray(function(err, res){
+                if(err){
+                    return reject(err);
+                }
+                return resolve(res);
+            });
+        });
+    });
+}
+
+
 module.exports = {
     getInst: function () {
         return new Store();
