@@ -1,6 +1,6 @@
 var mongodb = require("mongodb");
-//var url = "mongodb://52.71.161.217:27017/future_group";
-var url = "localhost:27017/future_group";
+// var url = "mongodb://52.71.161.217:27017/future_group";
+var url = "mongodb://localhost:27017/future_group";
 
 function getConnection(callback) {
     if(!global.MongoClient){
