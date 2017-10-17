@@ -28,7 +28,7 @@ Incident.prototype.getIncidentDetailsForCustomer = function (filter) {
 Incident.prototype.getAllIncidents = function () {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
-            db.collection(collectionName).find({},{storeId:1,_id:0})
+            db.collection(collectionName).find({},{incidentId:1,_id:0})
             .toArray(function(err, res){
                 if(err){
                     return reject(err);
