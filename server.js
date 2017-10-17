@@ -42,6 +42,32 @@ app.get('/futuregroup/bot/getAllStores/', function (request, response) {
     });
 });
 
+//get allIncidetns
+app.get('/futuregroup/bot/getAllIncidents/', function (request, response) {
+    var filter = {};
+    return Incident.getAllIncidents()
+    .then(function(res){
+        return response.send(res);
+    })
+    .catch(function(err){
+        console.log(err);
+        return response.status(500).send(err);
+    });
+});
+
+//get allOrders
+app.get('/futuregroup/bot/getAllOrders/', function (request, response) {
+    var filter = {};
+    return Order.getAllOrders()
+    .then(function(res){
+        return response.send(res);
+    })
+    .catch(function(err){
+        console.log(err);
+        return response.status(500).send(err);
+    });
+});
+
 //get valid customer
 app.get('/futuregroup/bot/checkValidUser/', function (request, response) {
     var filter = {};

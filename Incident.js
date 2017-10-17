@@ -24,6 +24,20 @@ Incident.prototype.getIncidentDetailsForCustomer = function (filter) {
     });
 }
 
+//get All Incidents
+Incident.prototype.getAllIncidents = function () {
+    return new Promise(function(resolve, reject){
+        dbManager.getConnection(function (db) {
+            db.collection(collectionName).find({},{storeId:1,_id:0})
+            .toArray(function(err, res){
+                if(err){
+                    return reject(err);
+                }
+                return resolve(res);
+            });
+        });
+    });
+}
 module.exports = {
     getInst: function () {
         return new Incident();

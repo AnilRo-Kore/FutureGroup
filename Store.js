@@ -29,11 +29,10 @@ Store.prototype.checkValidStore = function (filter) {
 }
 
 //get All Stores
-
 Store.prototype.getAllStores = function () {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
-            db.collection(collectionName).find()
+            db.collection(collectionName).find({},{_id:0,storeId:1})
             .toArray(function(err, res){
                 if(err){
                     return reject(err);

@@ -43,6 +43,22 @@ Order.prototype.getAlertFororders = function (filter) {
         });
     });
 }
+
+//get All Stores
+Order.prototype.getAllOrders = function () {
+    return new Promise(function(resolve, reject){
+        dbManager.getConnection(function (db) {
+            db.collection(collectionName).find({},{_id:0,orderId:1})
+            .toArray(function(err, res){
+                if(err){
+                    return reject(err);
+                }
+                return resolve(res);
+            });
+        });
+    });
+}
+
 module.exports = {
     getInst: function () {
         return new Order();
