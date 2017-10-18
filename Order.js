@@ -45,10 +45,10 @@ Order.prototype.getAlertFororders = function (filter) {
 }
 
 //get All Stores
-Order.prototype.getAllOrders = function () {
+Order.prototype.getAllOrders = function (filter) {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
-            db.collection(collectionName).find({},{_id:0,orderId:1})
+            db.collection(collectionName).find({storeId: {$regex : new RegExp(filter.storeId, "i") }})
             .toArray(function(err, res){
                 if(err){
                     return reject(err);

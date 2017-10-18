@@ -25,10 +25,10 @@ Incident.prototype.getIncidentDetailsForCustomer = function (filter) {
 }
 
 //get All Incidents
-Incident.prototype.getAllIncidents = function () {
+Incident.prototype.getAllIncidents = function (filter) {
     return new Promise(function(resolve, reject){
         dbManager.getConnection(function (db) {
-            db.collection(collectionName).find({},{incidentId:1,_id:0})
+            db.collection(collectionName).find({storeId: {$regex : new RegExp(filter.storeId, "i") }})
             .toArray(function(err, res){
                 if(err){
                     return reject(err);

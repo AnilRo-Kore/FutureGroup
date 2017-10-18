@@ -45,7 +45,8 @@ app.get('/futuregroup/bot/getAllStores/', function (request, response) {
 //get allIncidetns
 app.get('/futuregroup/bot/getAllIncidents/', function (request, response) {
     var filter = {};
-    return Incident.getAllIncidents()
+    filter.storeId = request.query.storeId;
+    return Incident.getAllIncidents(filter)
     .then(function(res){
         return response.send(res);
     })
@@ -58,7 +59,8 @@ app.get('/futuregroup/bot/getAllIncidents/', function (request, response) {
 //get allOrders
 app.get('/futuregroup/bot/getAllOrders/', function (request, response) {
     var filter = {};
-    return Order.getAllOrders()
+    filter.storeId = request.query.storeId;
+    return Order.getAllOrders(filter)
     .then(function(res){
         return response.send(res);
     })
