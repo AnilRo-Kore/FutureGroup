@@ -109,6 +109,22 @@ app.get('/futuregroup/bot/product/', function (request, response) {
 });
 
 
+//get user details
+app.get('/futuregroup/bot/getUserDetails/', function (request, response) {
+    var filter = {};
+    filter.userId = request.query.userId;
+
+    return User.getUserDetails(filter)
+    .then(function(res){
+        return response.send(res);
+    })
+    .catch(function(err){
+        console.log(err);
+        return response.status(500).send(err);
+    });
+});
+
+
 //get product inventory details
 app.get('/futuregroup/bot/getProductsInStore/', function (request, response) {
     var filter = {};
